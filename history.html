@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Recommendation History</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      margin: 0;
+      background: #f5f7fb;
+      display: flex;
+    }
+
+    .sidebar {
+      width: 230px;
+      background: #1f3c88;
+      color: white;
+      min-height: 100vh;
+      padding: 30px 20px;
+      box-shadow: 3px 0 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .sidebar .brand {
+      font-size: 24px;
+      font-weight: 600;
+      text-align: center;
+      margin-bottom: 40px;
+    }
+
+    .sidebar a {
+      display: block;
+      text-decoration: none;
+      color: #dbe2f4;
+      padding: 12px 10px;
+      border-radius: 8px;
+      margin: 5px 0;
+      transition: 0.3s;
+      font-size: 15px;
+    }
+
+    .sidebar a:hover,
+    .sidebar a.active {
+      background: #324e9b;
+      color: #fff;
+    }
+
+    .main {
+      flex: 1;
+      padding: 40px;
+    }
+
+    h2 {
+      color: #1f3c88;
+      margin-bottom: 25px;
+    }
+
+    .history-container {
+      background: white;
+      padding: 25px;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      border-radius: 8px;
+      overflow: hidden;
+    }
+
+    th, td {
+      padding: 14px 16px;
+      text-align: left;
+      border-bottom: 1px solid #e5e7eb;
+    }
+
+    th {
+      background: #1f3c88;
+      color: white;
+      font-weight: 500;
+    }
+
+    tr:nth-child(even) {
+      background: #f9fafc;
+    }
+
+    tr:hover {
+      background: #eef2fb;
+    }
+
+    td {
+      color: #333;
+      vertical-align: middle;
+      font-size: 15px;
+    }
+
+    .no-data {
+      text-align: center;
+      color: #777;
+      padding: 20px;
+    }
+  </style>
+</head>
+<body>
+  <div class="sidebar">
+    <div class="brand">🌾 AgriWise</div>
+    <nav>
+      <a href="/dashboard">Dashboard</a>
+      <a href="/recommend">AI Recommendation</a>
+      <a href="/history" class="active">History</a>
+      <a href="/trends">Market Trends</a>
+      <a href="/change_password">Change Password</a>
+      <a href="/logout">Logout</a>
+    </nav>
+  </div>
+
+  <div class="main">
+    <h2>Recommendation History</h2>
+    <div class="history-container">
+      <table>
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Date</th>
+            <th>Inputs</th>
+            <th>Suggested Crop</th>
+            <th>Yield (q/ha)</th>
+            <th>Confidence (%)</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% if records %}
+            {% for row in records %}
+            <tr>
+              <td>{{ loop.index }}</td>
+              <td>{{ row[0] }}</td>
+              <td style="max-width: 320px; word-wrap: break-word;">{{ row[1] }}</td>
+              <td>{{ row[2] }}</td>
+              <td>{{ row[3] }}</td>
+              <td>{{ row[4] }}</td>
+            </tr>
+            {% endfor %}
+          {% else %}
+            <tr><td colspan="6" class="no-data">No history records yet.</td></tr>
+          {% endif %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</body>
+</html>

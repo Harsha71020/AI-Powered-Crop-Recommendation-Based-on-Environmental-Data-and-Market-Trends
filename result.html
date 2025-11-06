@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AI Crop Recommendation Result</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, #56CCF2, #2F80ED);
+      color: #fff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      margin: 0;
+      padding: 20px;
+    }
+
+    .result-container {
+      background: rgba(255, 255, 255, 0.15);
+      backdrop-filter: blur(12px);
+      border-radius: 20px;
+      padding: 40px;
+      text-align: center;
+      width: 90%;
+      max-width: 600px;
+      box-shadow: 0 0 20px rgba(0,0,0,0.25);
+      animation: fadeIn 1s ease-in-out;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    h1 {
+      font-size: 2.2em;
+      margin-bottom: 10px;
+    }
+
+    p {
+      font-size: 1.1em;
+      margin: 8px 0;
+    }
+
+    .highlight {
+      color: #fff;
+      font-weight: 600;
+      text-transform: capitalize;
+      font-size: 1.4em;
+    }
+
+    img {
+      width: 200px;
+      height: 200px;
+      border-radius: 20px;
+      object-fit: cover;
+      box-shadow: 0 0 15px rgba(255,255,255,0.3);
+      margin: 20px 0;
+      border: 3px solid rgba(255,255,255,0.4);
+    }
+
+    .buttons {
+      margin-top: 20px;
+    }
+
+    .btn {
+      display: inline-block;
+      margin: 10px;
+      padding: 12px 24px;
+      background: #fff;
+      color: #2F80ED;
+      font-weight: 600;
+      border-radius: 30px;
+      border: none;
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.3s ease;
+    }
+
+    .btn:hover {
+      background: #2F80ED;
+      color: #fff;
+      box-shadow: 0 0 10px rgba(0,0,0,0.2);
+    }
+
+    footer {
+      margin-top: 25px;
+      font-size: 0.9em;
+      opacity: 0.8;
+    }
+  </style>
+</head>
+<body>
+  <div class="result-container">
+    <h1>🌾 AI Crop Recommendation</h1>
+    <p>Your best crop to plant is:</p>
+    <div class="highlight">{{ crop }}</div>
+
+    <img src="{{ url_for('static', filename='images/' + crop|lower + '.png') }}"
+         alt="{{ crop }} image"
+         onerror="this.src='{{ url_for('static', filename='images/default.png') }}';">
+
+    <p>🌱 Estimated Yield: <b>{{ yield_val }} quintals/hectare</b></p>
+
+    {% if confidence %}
+      <p>🤖 Model Confidence: <b>{{ confidence }}%</b></p>
+    {% endif %}
+
+    <div class="buttons">
+      <a href="{{ url_for('recommend') }}" class="btn">🔁 Try Again</a>
+      <a href="{{ url_for('dashboard') }}" class="btn">🏠 Back to Dashboard</a>
+      <a href="{{ url_for('logout') }}" class="btn">🚪 Logout</a>
+    </div>
+
+    <footer>Powered by AI Crop Recommendation System</footer>
+  </div>
+</body>
+</html>

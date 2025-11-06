@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Market Trends</title>
+    <style>
+        body {
+            background: linear-gradient(to right, #e3f2fd, #e8f5e9);
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+        }
+        h1 { color: #2e7d32; margin-top: 20px; }
+        table {
+            margin: 30px auto;
+            border-collapse: collapse;
+            width: 80%;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            background: white;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            font-size: 16px;
+        }
+        th {
+            background-color: #4caf50;
+            color: white;
+        }
+        tr:nth-child(even) { background-color: #f9f9f9; }
+        tr:hover { background-color: #e8f5e9; }
+        a {
+            display: inline-block;
+            margin: 20px;
+            text-decoration: none;
+            color: white;
+            background: #43a047;
+            padding: 10px 18px;
+            border-radius: 6px;
+            font-weight: bold;
+        }
+        a:hover { background: #2e7d32; }
+    </style>
+</head>
+<body>
+    <h1>📊 Crop Market Trends</h1>
+    <table>
+        <tr>
+            <th>Crop</th>
+            <th>Market Price (₹/quintal)</th>
+            <th>Demand Index (%)</th>
+        </tr>
+        {% for crop, price, demand in trend_data %}
+        <tr>
+            <td>{{ crop }}</td>
+            <td>{{ price }}</td>
+            <td>{{ demand }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+    <a href="/">🏠 Back to Dashboard</a>
+</body>
+</html>

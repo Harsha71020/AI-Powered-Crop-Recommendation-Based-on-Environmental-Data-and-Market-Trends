@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Dashboard - AgriWise</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body class="">
+  <div class="app">
+    <aside class="sidebar">
+      <div class="brand">
+        <div class="logo">AI</div>
+        <div>
+          <h1>AgriWise</h1>
+          <div style="font-size:12px;color:var(--muted)">Crop suggestions & trends</div>
+        </div>
+      </div>
+
+      <nav>
+        <a href="/dashboard" class="active">Dashboard</a>
+        <a href="/recommend">AI Recommendation</a>
+        <a href="/history">History</a>
+        <a href="/trends">Market Trends</a>
+        <a href="/change_password">Change Password</a>
+        <a href="/logout">Logout</a>
+      </nav>
+
+      <div style="position:absolute; bottom:24px; left:18px; right:18px; font-size:13px; color:var(--muted)">
+        Logged in as <strong>{{ user }}</strong>
+      </div>
+    </aside>
+
+    <main class="main">
+      <div class="header">
+        <div class="left">
+          <h2>Dashboard</h2>
+          <div style="color:var(--muted); margin-top:6px">Overview of suggestions, yields and market signals</div>
+        </div>
+        <div class="controls">
+          <button class="icon-btn" onclick="toggleTheme()">Toggle Theme</button>
+        </div>
+      </div>
+
+      <div class="card-grid">
+        <div class="card">
+          <h3>Estimated yield (q/ha)</h3>
+          <div class="value">210</div>
+        </div>
+        <div class="card">
+          <h3>Estimated profit (₹/ha)</h3>
+          <div class="value">₹42,000</div>
+        </div>
+        <div class="card">
+          <h3>Model confidence</h3>
+          <div class="value">78%</div>
+        </div>
+      </div>
+
+      <div class="layout">
+        <section>
+          <div class="card">
+            <h3>Get recommendation</h3>
+            <div class="form-card">
+              <form method="GET" action="/recommend">
+                <div style="display:flex;gap:8px; margin-bottom:10px;">
+                  <input type="text" name="region" placeholder="Region / District" style="flex:1" />
+                  <select name="market_signal" style="width:180px">
+                    <option value="1">Stable</option>
+                    <option value="2">Rising</option>
+                    <option value="0">Falling</option>
+                  </select>
+                </div>
+                <a class="btn" href="/recommend">Open AI Recommender</a>
+              </form>
+            </div>
+          </div>
+
+          <div class="card" style="margin-top:12px">
+            <h3>Recent suggestions</h3>
+            <div class="result-block">
+              <strong>Tomato</strong> — Recommended for coastal plains. Estimated yield 220 q/ha.
+            </div>
+          </div>
+        </section>
+
+        <aside>
+          <div class="card">
+            <h3>Market trends (sample)</h3>
+            <canvas id="marketChart" style="width:100%;height:200px"></canvas>
+          </div>
+        </aside>
+      </div>
+    </main>
+  </div>
+
+<script>
+function toggleTheme(){
+  document.body.classList.toggle('light');
+}
+const ctx = document.getElementById('marketChart').getContext('2d');
+new Chart(ctx, {
+  type:'bar',
+  data:{
+    labels:['Wheat','Tomato','Rice','Maize','Cotton'],
+    datasets:[{ label:'Demand Index', data:[60,85,70,55,40], backgroundColor:'rgba(43,124,75,0.9)'}]
+  },
+  options:{ responsive:true, maintainAspectRatio:false }
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI Crop Recommendation</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Poppins', sans-serif;
+      background: radial-gradient(circle at top left, #d1f9d3, #a3e7dc, #c9e3ff);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      overflow-y: auto;
+    }
+
+    .container {
+      width: 90%;
+      max-width: 800px;
+      background: rgba(255, 255, 255, 0.9);
+      border-radius: 20px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+      padding: 40px 50px;
+      text-align: center;
+      animation: fadeIn 0.8s ease-in-out;
+      margin: 40px 0;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    h1 {
+      color: #2e7d32;
+      margin-bottom: 10px;
+      font-size: 2rem;
+    }
+
+    p {
+      color: #555;
+      font-size: 15px;
+      margin-bottom: 30px;
+    }
+
+    form {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      text-align: left;
+    }
+
+    label {
+      font-weight: 600;
+      color: #333;
+      margin-bottom: 5px;
+      display: block;
+    }
+
+    input, select {
+      width: 100%;
+      padding: 10px;
+      border-radius: 10px;
+      border: 1px solid #ccc;
+      font-size: 14px;
+      transition: 0.3s;
+    }
+
+    input:focus, select:focus {
+      border-color: #2e7d32;
+      outline: none;
+      box-shadow: 0 0 6px rgba(46, 125, 50, 0.3);
+    }
+
+    button {
+      grid-column: 1 / span 2;
+      padding: 14px;
+      background: linear-gradient(45deg, #2e7d32, #66bb6a);
+      color: white;
+      border: none;
+      border-radius: 12px;
+      font-size: 16px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: 0.3s ease;
+      box-shadow: 0 4px 10px rgba(46, 125, 50, 0.3);
+    }
+
+    button:hover {
+      background: linear-gradient(45deg, #1b5e20, #43a047);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 14px rgba(46, 125, 50, 0.4);
+    }
+
+    .footer {
+      margin-top: 25px;
+      text-align: center;
+      font-size: 14px;
+      color: #555;
+    }
+
+    .footer a {
+      color: #2e7d32;
+      font-weight: 600;
+      text-decoration: none;
+    }
+
+    .footer a:hover {
+      text-decoration: underline;
+    }
+
+    /* Smooth Scrollbar and Mobile Adjustments */
+    ::-webkit-scrollbar {
+      width: 10px;
+    }
+    ::-webkit-scrollbar-thumb {
+      background-color: #2e7d32;
+      border-radius: 10px;
+    }
+    @media (max-width: 700px) {
+      .container {
+        padding: 30px 20px;
+      }
+      form {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <h1>🌾 AI Crop Recommendation</h1>
+    <p>Enter your environmental and soil parameters below to get the best crop suggestion.</p>
+
+    <form method="POST" action="/recommend">
+      <div>
+        <label for="n">Nitrogen (N)</label>
+        <input type="number" id="n" name="n" step="0.1" required>
+      </div>
+      <div>
+        <label for="p">Phosphorus (P)</label>
+        <input type="number" id="p" name="p" step="0.1" required>
+      </div>
+      <div>
+        <label for="k">Potassium (K)</label>
+        <input type="number" id="k" name="k" step="0.1" required>
+      </div>
+      <div>
+        <label for="temp">Temperature (°C)</label>
+        <input type="number" id="temp" name="temp" step="0.1" required>
+      </div>
+      <div>
+        <label for="humidity">Humidity (%)</label>
+        <input type="number" id="humidity" name="humidity" step="0.1" required>
+      </div>
+      <div>
+        <label for="ph">Soil pH</label>
+        <input type="number" id="ph" name="ph" step="0.1" min="3" max="10" required>
+      </div>
+      <div>
+        <label for="rainfall">Rainfall (mm)</label>
+        <input type="number" id="rainfall" name="rainfall" step="0.1" required>
+      </div>
+      <div>
+        <label for="soil_moisture">Soil Moisture (%)</label>
+        <input type="number" id="soil_moisture" name="soil_moisture" step="0.1" required>
+      </div>
+      <div>
+        <label for="market_signal">Market Trend</label>
+        <select id="market_signal" name="market_signal" required>
+          <option value="0">📉 Falling</option>
+          <option value="1">⚖️ Stable</option>
+          <option value="2">📈 Rising</option>
+        </select>
+      </div>
+
+      <button type="submit">🌿 Recommend Best Crop</button>
+    </form>
+
+    <div class="footer">
+      <p>Want to view your past predictions? <a href="/history">Go to History</a></p>
+    </div>
+  </div>
+</body>
+</html>

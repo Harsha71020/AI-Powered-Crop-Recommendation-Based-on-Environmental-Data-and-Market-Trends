@@ -1,0 +1,5 @@
+[
+  "tests/test_login.py::test_empty_fields",
+  "tests/test_login.py::test_invalid_login",
+  "tests/test_login.py::test_valid_login"
+]
