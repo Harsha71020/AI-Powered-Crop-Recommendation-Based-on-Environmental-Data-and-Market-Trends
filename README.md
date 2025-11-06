@@ -1,0 +1,1 @@
+# AI-Powered-Crop-Recommendation-Based-on-Environmental-Data-and-Market-Trends
